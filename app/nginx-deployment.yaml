@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: tryx-001  # 네임스페이스 지정
+  namespace: default-test 
 spec:
   replicas: 2  # nginx 파드 2개 생성
   selector:
