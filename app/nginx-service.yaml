@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx  # Deployment에서 설정한 레이블과 일치해야 합니다.
+  ports:
+    - protocol: TCP
+      port: 80         # 서비스가 노출되는 포트
+      targetPort: 80    # 파드 내에서 사용하는 포트
+  type: ClusterIP  # Kubernetes 클러스터 내에서만 접근 가능
