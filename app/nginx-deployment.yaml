@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: tryx-001  # 네임스페이스 추가
+  namespace: tryx-001  # 네임스페이스 지정
 spec:
   replicas: 2  # nginx 파드 2개 생성
   selector:
     matchLabels:
-      app: nginx
+      app: nginx  # 라벨을 app: nginx로 설정
   template:
     metadata:
       labels:
-        app: nginx
+        app: nginx  # 파드에 app: nginx 라벨을 지정
     spec:
       containers:
       - name: nginx
-        image: nginx:latest
+        image: nginx:latest  # 사용할 NGINX 이미지
         ports:
-        - containerPort: 80  # 포트 80을 열어줍니다.
+        - containerPort: 80  # 포트 80을 개방
