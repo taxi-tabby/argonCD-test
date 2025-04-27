@@ -4,9 +4,9 @@ metadata:
   name: nginx-service
 spec:
   selector:
-    app: nginx  # Deployment에서 설정한 레이블과 일치해야 합니다.
+    app: nginx  # nginx-deployment와 연결되는 파드를 찾습니다.
   ports:
     - protocol: TCP
-      port: 80         # 서비스가 노출되는 포트
-      targetPort: 80    # 파드 내에서 사용하는 포트
-  type: ClusterIP  # Kubernetes 클러스터 내에서만 접근 가능
+      port: 80       # 외부에서 접근할 포트
+      targetPort: 80  # 파드의 컨테이너 포트
+  type: LoadBalancer  # 외부에서 접근 가능하게 설정

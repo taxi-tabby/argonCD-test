@@ -2,9 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
-  namespace: test-space 
 spec:
-  replicas: 2
+  replicas: 2  # nginx 파드 2개 생성
   selector:
     matchLabels:
       app: nginx
@@ -17,4 +16,4 @@ spec:
       - name: nginx
         image: nginx:latest
         ports:
-        - containerPort: 80
+        - containerPort: 80  # 포트 80을 열어줍니다.
