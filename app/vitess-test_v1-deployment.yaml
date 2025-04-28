@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vitess-test
+  namespace: default-test 
+  labels:
+    app: vitess-test
+    version: v1
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: vitess-test
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: vitess-test
+        version: v1
+    spec:
+      containers:
+      - name: vitess
+        image: vitess/lite:v15.0.0
+        ports:
+        - containerPort: 15991
+          name: web
+        - containerPort: 15999
+          name: grpc
+        resources:
+          limits:
+            cpu: 200m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        readinessProbe:
+          httpGet:
+            path: /debug/health
+            port: web
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /debug/health
+            port: web
+          initialDelaySeconds: 20
+          timeoutSeconds: 3
+        env:
+        - name: VTDATAROOT
+          value: "/vtdataroot"
+        volumeMounts:
+        - name: data
+          mountPath: /vtdataroot
+      volumes:
+      - name: data
+        emptyDir: {}
