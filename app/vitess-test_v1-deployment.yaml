@@ -29,10 +29,10 @@ spec:
         resources:
           limits:
             cpu: 200m
-            memory: 256Mi
+            memory: 512Mi  # 256Mi에서 증가
           requests:
             cpu: 100m
-            memory: 128Mi
+            memory: 256Mi  # 128Mi에서 증가
         readinessProbe:
           httpGet:
             path: /debug/health
