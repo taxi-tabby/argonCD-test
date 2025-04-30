@@ -7759,7 +7759,7 @@ spec:
             - vitess-operator
           env:
             - name: WATCH_NAMESPACE
-              value: "default,default-vitess"
+              value: "tryx-001,default-vitess"
             - name: POD_NAME
               valueFrom:
                 fieldRef:
