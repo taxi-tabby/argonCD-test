@@ -5,7 +5,7 @@
 apiVersion: planetscale.com/v2
 kind: VitessCluster
 metadata:
-  name: example
+  name: the-default-vitess-cluster
   namespace: default-vitess
 spec:
   backup:
