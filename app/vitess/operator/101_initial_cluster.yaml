@@ -74,6 +74,15 @@ spec:
       requests:
         cpu: 100m
         memory: 128Mi
+    # 추가: 외부 접근을 위한 설정
+    extraEnv:
+      - name: VTADMIN_ADDR
+        value: ":14001"  # 모든 인터페이스에서 수신
+    # 추가: CORS 설정 (필요시)
+    extraFlags:
+      cors-allow-origins: "*"
+      cors-allow-methods: "GET,POST,PUT,DELETE"
+
 
   keyspaces:
   - name: commerce
@@ -231,3 +240,18 @@ stringData:
         - "planned_failover_shard"
       subjects: ["*"]
       clusters: ["*"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vtadmin
+  namespace: default-vitess
+spec:
+  selector:
+    planetscale.com/component: vtadmin
+    planetscale.com/cluster: the-default-vitess-cluster
+  ports:
+  - name: http
+    port: 14001
+    targetPort: 14001
+  type: LoadBalancer  # 클라우드 환경에서는 LoadBalancer, 온프렘은 NodePort 사용
