@@ -255,3 +255,23 @@ spec:
     port: 14001
     targetPort: 14001
   type: LoadBalancer  # 클라우드 환경에서는 LoadBalancer, 온프렘은 NodePort 사용
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vtadmin-ingress
+  namespace: default-vitess
+  annotations:
+    kubernetes.io/ingress.class: "nginx"  # 사용 중인 Ingress 컨트롤러에 맞게 조정
+spec:
+  rules:
+  - host: vtadmin.example.com  # 원하는 도메인명으로 변경
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: vtadmin
+            port:
+              number: 14001
